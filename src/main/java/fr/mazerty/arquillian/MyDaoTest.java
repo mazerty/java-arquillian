@@ -1,4 +1,4 @@
-package fr.mazerty.shika.n;
+package fr.mazerty.arquillian;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;

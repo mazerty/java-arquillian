@@ -1,4 +1,4 @@
-package fr.mazerty.shika.n;
+package fr.mazerty.arquillian;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
