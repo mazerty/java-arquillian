@@ -3,6 +3,7 @@ package fr.mazerty.arquillian;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jooq.DSLContext;
+import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 
@@ -18,14 +19,16 @@ public abstract class MyDaoTest extends MyArquillianTest {
         return defaultDeployment();
     }
 
-    protected void delete(Table... tables) {
+    @SafeVarargs
+    protected final void delete(Table<? extends Record>... tables) {
         dslContext.transaction(configuration -> {
-            for (Table table : tables) {
+            for (Table<? extends Record> table : tables) {
                 dslContext.delete(table).execute();
             }
         });
     }
 
+    @SuppressWarnings("unchecked") // because TableRecord<R extends TableRecord<R>> isn't generifiable in this case
     protected void insert(TableRecord... records) {
         dslContext.transaction(configuration -> {
             for (TableRecord record : records) {
