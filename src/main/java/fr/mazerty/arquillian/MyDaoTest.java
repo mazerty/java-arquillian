@@ -1,5 +1,7 @@
 package fr.mazerty.arquillian;
 
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Table;
@@ -11,6 +13,14 @@ public abstract class MyDaoTest extends MyArquillianTest {
 
     @Inject
     private DSLContext dslContext;
+
+    /**
+     * In DAO tests we don't need to mock anything so we can return the default deployment
+     */
+    @Deployment
+    public static WebArchive deployment() {
+        return defaultDeployment();
+    }
 
     @SafeVarargs
     protected final void delete(Table<? extends Record>... tables) {
